@@ -18,7 +18,7 @@ with open("/Users/LJ/Desktop/roomid.csv",'r') as f:
 
 
     date = ()
-    date = list(range(30,31))
+    date = list(range(31,32))
     print(date)
 
     date_str =[]

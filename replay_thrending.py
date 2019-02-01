@@ -1,51 +1,98 @@
 # coding=utf-8
-'''
-random.randint(a, b):用于生成一个指定范围内的整数。
-其中参数a是下限，参数b是上限，生成的随机数n: a <= n <= b
-random.choice(sequence)：从序列中获取一个随机元素
-参数sequence表示一个有序类型（列表，元组，字符串）
-'''
-import httplib, urllib
+
+
+
 from time import ctime
 import threading
+import requests
+import csv
 
 
-# from random import randint,choice
+
+#读取文件
+def getRoomid(data):
+
+    with open(data,'r') as f:
+
+        rd = []
+        reader = csv.reader(f)
+        fieldnames = next(reader)
+        csv_reader = csv.DictReader(f,fieldnames=fieldnames)
+
+        for row in csv_reader:
+            d={}
+            for k,v in row.items():
+                d[k]=v
+            rd.append(d['room_id'])
+
+        return rd
 
 
-# 创建请求函数
-def getRequest():
-    # 定义一些文件头
-    headers = {}
-
-    # 请求服务,例如：www.baidu.com
-    hostServer = ""
-    # 接口
-    requrl = ""
-    # 连接服务器
-    conn = httplib.HTTPConnection(hostServer)
-    # 发送请求
-    conn.request(method="GET", url=requrl, headers=headers)
-    # 获取请求响应
-    response = conn.getresponse()
-    # 打印请求状态
-    if response.status in range(200, 300):
-        pass
 
 
-# 创建数组存放线程
+#get请求
+def getRequest(u):
+    print(u)
+    r = requests.get(u)
+    print(r.json())
+
+
+
+
+
+#创建需要恢复的天数
+def getDate(begin_day,end_day):
+
+    date_int = list(range(begin_day,end_day))
+    date_str = []
+
+    for c in date_int:
+        d = str(c)
+        date_str.append(d)
+
+    return date_str
+
+
+#生成所需的url
+
+all_date = getDate(27,29)
+print(all_date)
+
+room_id = getRoomid('/Users/LJ/Desktop/roomid.csv')
+print(room_id)
+
+
+
+url_1 = 'http://admin.usasishu.com/api/open/gensee.php?ClassNo='
+url_2 = '&Action=106&date=2019-01-'
+
+all_url = []
+
+for current_day in all_date:
+    for class_no in room_id:
+        url = url_1 + class_no + url_2 + current_day
+        all_url.append(url)
+
+
+
+print(all_url)
+
+
+
+'''
+
+
+for 
+
 threads = []
-# 创建100个线程
-for i in range(100):
-    # 针对函数创建线程
-    t = threading.Thread(target=getRequest, args=())
-    # 把创建的线程加入线程组
+for i in range(5):
+    
+    t = threading.Thread(target=getRequest(a), args=())
     threads.append(t)
 
-if __name__ == '__main__':
-    # 启动线程
     for i in threads:
         i.start()
-        # keep thread
     for i in threads:
         i.join()
+
+'''
