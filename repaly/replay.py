@@ -1,6 +1,7 @@
 #encoding:utf-8
 import requests
 import csv
+import time
 
 with open("/Users/LJ/Desktop/roomid.csv",'r') as f:
     rd = []
@@ -18,7 +19,7 @@ with open("/Users/LJ/Desktop/roomid.csv",'r') as f:
 
 
     date = ()
-    date = list(range(31,32))
+    date = list(range(1,2))
     print(date)
 
     date_str =[]
@@ -34,10 +35,12 @@ with open("/Users/LJ/Desktop/roomid.csv",'r') as f:
 
     for classno in rd:
         for t in date_str:
-            url = 'http://admin.usasishu.com/api/open/gensee.php?ClassNo=' + classno + '&Action=106&date=2019-01-' + t
-            print(url)
+            url = 'http://admin.usasishu.com/api/open/gensee.php?ClassNo=' + classno + '&Action=106&date=2019-02-0' + t
+            print('当前的url：'+url+'\n')
             r = requests.get(url)
+            print('发出请求的时间：'+ time.ctime(time.time()) + '\n')
             print(r.json())
+            print('——————————————————————————————————————————————————————————')
             
 
 
