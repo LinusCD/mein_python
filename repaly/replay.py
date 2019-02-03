@@ -19,7 +19,7 @@ with open("/Users/LJ/Desktop/roomid.csv",'r') as f:
 
 
     date = ()
-    date = list(range(1,2))
+    date = list(range(2,3))
     print(date)
 
     date_str =[]
@@ -38,7 +38,6 @@ with open("/Users/LJ/Desktop/roomid.csv",'r') as f:
             url = 'http://admin.usasishu.com/api/open/gensee.php?ClassNo=' + classno + '&Action=106&date=2019-02-0' + t
             print('当前的url：'+url+'\n')
             r = requests.get(url)
-            print('发出请求的时间：'+ time.ctime(time.time()) + '\n')
             print(r.json())
             print('——————————————————————————————————————————————————————————')
             

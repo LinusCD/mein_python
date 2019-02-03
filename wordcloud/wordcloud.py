@@ -23,7 +23,7 @@ word_list=jieba.cut(line,cut_all=False)
 #word_cut='，'.join(word_list)
 word_cut=list(word_list)
 type(word_cut
-
+wind
 cloud_mask = np.array(Image.open('/Users/huxugang/Github/boyandgirl.jpeg'))
 
 back_color = imread('/Users/huxugang/Github/boyandgirl.jpeg')
